@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_bloc/blocs/bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -10,7 +11,9 @@ class LoginScreen extends StatelessWidget {
         children: <Widget>[
           emailField(),
           passwordField(),
-          Container(margin: EdgeInsets.all(20.0),),
+          Container(
+            margin: EdgeInsets.all(20.0),
+          ),
           submitButton(),
         ],
       ),
@@ -18,29 +21,44 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget emailField() {
-    return TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration:
-          InputDecoration(labelText: 'Email', hintText: 'you@emample.com'),
+    return StreamBuilder(
+      stream: bloc.email,
+      builder: (context, snapshot) {
+        return TextField(
+          onChanged: (newValue) {
+            bloc.changeEmail(newValue);
+          },
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+              errorText: snapshot.error,
+              labelText: 'Email',
+              hintText: 'you@emample.com'),
+        );
+      },
     );
   }
 
   Widget passwordField() {
-    return TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-        labelText: 'Password',
-        hintText: 'Enter more then 4 digit',
-      ),
-    );
+    return StreamBuilder(
+        stream: bloc.password,
+        builder: (context, snapshot) {
+          return TextField(
+            onChanged: bloc.changePassword,
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: 'Password',
+              hintText: 'Enter more then 4 digit',
+              errorText: snapshot.error,
+            ),
+          );
+        });
   }
 
-  Widget submitButton()
-  {
+  Widget submitButton() {
     return RaisedButton(
       child: Text('Login'),
       color: Colors.amber,
-      onPressed: (){},
+      onPressed: () {},
     );
   }
 }
