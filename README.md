@@ -1,6 +1,9 @@
 # login_bloc
 
-A new Flutter project.
+A Simple Flutter project with BLoC Pattern 
+This Project 2 branches
+- **Master** : It has Code For Scoped Instance in Bloc Pattern with RxDart functionality
+- **global_instance** : It has Code for Global Instance in BLoC Pattern.
 
 ## Getting Started
 
