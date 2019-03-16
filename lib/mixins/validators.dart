@@ -15,7 +15,7 @@ class Validator {
     if (password.length > 3) {
       sink.add(password);
     } else {
-      sink.add('Length should be atleast 3');
+      sink.addError('Length should be atleast 3');
     }
   });
 }
